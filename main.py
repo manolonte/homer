@@ -12,15 +12,20 @@ def main():
     sensor_salon = Sensor("sensor_salon", "salon", broker)
     
     broker.start()
+    
     enchufe.on()
     time.sleep(5)
     enchufe.off()
     
-    # luz.on()
-    # time.sleep(5)
-    # luz.off()
+    # # luz.on()
+    # # time.sleep(5)
+    # # luz.off()
 
-    print(sensor_salon.state)
+    time.sleep(20)
+
+    print(sensor_salon.get_data())
+    print(enchufe.get_data())
+    print(luz.get_data())
 
     broker.stop()
 

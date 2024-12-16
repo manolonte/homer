@@ -1,8 +1,14 @@
 from components.onoff import OnOff
-from devices.switchable_device import SwitchableDevice
+from devices.device import Device
 
 
-class Switch(SwitchableDevice):
+class SwitchableDevice(Device):
     def __init__(self, name, zone, broker):
         super().__init__(name, zone, broker)
         self.onoff = OnOff("onoff", self)
+
+    def on(self):
+        self.onoff.on()
+
+    def off(self):
+        self.onoff.off()
