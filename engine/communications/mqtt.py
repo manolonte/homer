@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt_client
+import time
 
 
 class Broker:
@@ -36,9 +37,11 @@ class Broker:
         self.client.username_pw_set("openhabian", "ohPinno9!")
         self.client.connect("192.168.2.130", 1883, 60)
         self.client.loop_start()
-        #self.client.publish(self.topic + "/bridge/devices", "")
+        time.sleep(5)
         for device_name in self.devices:
-            self.client.publish(self.topic + "/" + device_name + "/get", '{"state": ""}')
+              print(device_name + ":" + self.devices[device_name].probe_property)
+              if self.devices[device_name].probe_property != "" and not self.devices[device_name].state :
+                self.client.publish(self.topic + "/" + device_name + "/get", '{"' + self.devices[device_name].probe_property + '": ""}')
 
 
     def set_state(self, device, property, state):

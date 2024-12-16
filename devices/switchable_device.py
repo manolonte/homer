@@ -1,14 +1,15 @@
-from components.onoff import OnOff
 from devices.device import Device
 
 
 class SwitchableDevice(Device):
     def __init__(self, name, zone, broker):
         super().__init__(name, zone, broker)
-        self.onoff = OnOff("onoff", self)
+        self.probe_property = "state"
+        # self.onoff = OnOff("onoff", self)
 
     def on(self):
-        self.onoff.on()
+        self.set_property("state", "ON")
 
     def off(self):
-        self.onoff.off()
+        self.set_property("state", "OFF")
+    
