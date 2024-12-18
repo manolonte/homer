@@ -1,12 +1,12 @@
 import json
 
 class Device:
-    def __init__(self, name, zone, broker):
+    def __init__(self, name, zone, engine):
         self.name = name
         self.zone = zone
-        self.broker = broker
+        self.engine = engine
         self.state = ""
-        broker.add_device(self)
+        engine.add_device(self)
         self.probe_property = "linkquality"
         self.properties = {}
 
@@ -21,5 +21,5 @@ class Device:
         return self.name, self.zone, self.state, self.properties
     
     def set_property(self, property, value):
-        self.broker.set_state(self.name, property, value)
+        self.engine.broker.set_state(self.name, property, value)
         self.properties[property] = value
