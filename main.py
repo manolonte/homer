@@ -17,6 +17,11 @@ def main():
     time.sleep(5)
 
     print(interruptor_agua_caliente.properties["countdown"])
+    print(engine.rules)
+    print(engine.when)
+
+    while True:
+        pass
 
     engine.stop()
 

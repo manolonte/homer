@@ -6,11 +6,20 @@ class SensorCalentadorRule(Rule):
         print("SensorCalentadorRule")
         self.engine.devices["interruptor_agua_caliente"].off()
     
-    def when(self):
+    def when_sensor(self):
         condition = {"device": "sensor_salon", 
                      "property": "occupancy", 
                      "value": True}
 
-        action = self.execute()
+        action = self.execute
+
+        return condition, action
+
+    def when_enchufe(self):
+        condition = {"device": "enchufe_esquina_salon", 
+                     "property": "countdown", 
+                     "value": 0}
+
+        action = self.execute
 
         return condition, action

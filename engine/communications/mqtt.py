@@ -8,6 +8,7 @@ class Broker:
         self.topic = topic
         self.client = None
         self.engine = engine
+        self.evaluate_when = False
         engine.add_broker(self)
 
     def on_connect(self, client, userdata, flags, reason_code, properties):
@@ -22,6 +23,8 @@ class Broker:
         device_name = msg.topic.split("/")[1] 
         if device_name in self.engine.devices:
             self.engine.devices[device_name].set_state(msg.payload)
+            if self.evaluate_when:
+                self.engine.evaluate_when(self.engine.devices[device_name])
 
 
     def start(self):

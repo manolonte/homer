@@ -1,6 +1,7 @@
 import importlib
 import inspect
 import os
+import time
 import engine.communications.mqtt as mqtt
 
 class Engine:
@@ -8,6 +9,7 @@ class Engine:
         self.config = config
         self.devices = {}
         self.rules = self.load_rules()
+        self.when = self.load_when()
         self.broker = mqtt.Broker("zigbee2mqtt",self)
 
 
@@ -29,10 +31,31 @@ class Engine:
                         rules.append(obj(self))
         return rules
 
+    def load_when(self):
+        when = []
+        for rule in self.rules:
+            # Execute all when methods in rules (methods that start with when_)
+            for method in inspect.getmembers(rule, predicate=inspect.ismethod):
+                if method[0].startswith("when"):
+                    condition_and_action = getattr(rule, method[0])()
+                    when.append({ "condition": condition_and_action[0], "action": condition_and_action[1]})
+        return when
+
     def start(self):
         self.broker.start()
-        for rule in self.rules:
-            rule.execute()
+        time.sleep(10)
+        self.broker.evaluate_when = True
     
     def stop(self):
         self.broker.stop()
+
+    def evaluate_when(self, device):
+        print("Evaluating when for " + device.name)
+        for when in self.when:
+            if when["condition"] == None:
+                print("No condition")
+                continue
+            if when["condition"]["device"] == device.name:
+                if device.properties[when["condition"]["property"]] == when["condition"]["value"]:
+                    print("Condition met")
+                    when["action"]()
