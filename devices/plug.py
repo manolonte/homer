@@ -1,4 +1,3 @@
-from components.onoff import OnOff
 from devices.switchable_device import SwitchableDevice
 
 

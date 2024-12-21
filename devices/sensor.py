@@ -1,6 +1,4 @@
-from components.input import Input
 from devices.device import Device
-
 
 class Sensor(Device):
     def __init__(self, name, zone, broker):
