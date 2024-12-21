@@ -5,8 +5,8 @@
             "type": "Plug",
             "zone": "salon"
         },
-        { 
-            "name" : "enchufe_sofa",
+        {
+            "name": "enchufe_sofa",
             "type": "Plug",
             "zone": "salon"
         },
@@ -44,6 +44,11 @@
             "name": "sensor_humedad",
             "type": "Sensor",
             "zone": "jardin"
+        },
+        {
+            "name": "interruptor_salon",
+            "type": "Switch",
+            "zone": "salon"
         }
     ]
 }
