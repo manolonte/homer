@@ -21,6 +21,8 @@ def main():
 
     print("Enchufe sofa: " + engine.devices["enchufe_sofa"].get_state())
 
+    engine.configure_device("interruptor_salon", "Switch", "salon")
+
     while True:
         pass
 

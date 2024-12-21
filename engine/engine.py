@@ -65,9 +65,17 @@ class Engine:
 
     def read_configuration(self):
         with open(self.config) as f:
-            config_json = json.load(f)
-        for device in config_json["devices"]:
+            self.config_json = json.load(f)
+        for device in self.config_json["devices"]:
             # Dynamically load device classes based on config file
             device_class = globals()[device["type"].capitalize()]
             self.devices["name"] = device_class(device["name"], device["zone"], self)
+
+    def configure_device(self, name, type, zone):
+        device = globals()[type.capitalize()](name, zone, self)
+        self.devices[name] = device
+        self.config_json["devices"].append({"name": device.name, "type": device.__class__.__name__, "zone": device.zone})
+        # Format json and write to file
+        with open(self.config, "w") as f:
+            json.dump(self.config_json, f, indent=4)
             
