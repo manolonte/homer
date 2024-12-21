@@ -11,7 +11,7 @@ class Device:
         self.properties = {}
 
     def set_state(self,state):
-        self.state = state
+        self.state = state.decode("utf-8")
         self.properties = json.loads(state)
 
     def get_state(self):
@@ -23,3 +23,4 @@ class Device:
     def set_property(self, property, value):
         self.engine.broker.set_state(self.name, property, value)
         self.properties[property] = value
+        self.state = json.dumps(self.properties)

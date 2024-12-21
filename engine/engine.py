@@ -3,11 +3,14 @@ import inspect
 import os
 import time
 import engine.communications.mqtt as mqtt
+import json
+from devices import *
 
 class Engine:
     def __init__(self, config):
         self.config = config
         self.devices = {}
+        self.read_configuration()
         self.rules = self.load_rules()
         self.when = self.load_when()
         self.broker = mqtt.Broker("zigbee2mqtt",self)
@@ -59,3 +62,12 @@ class Engine:
                 if device.properties[when["condition"]["property"]] == when["condition"]["value"]:
                     print("Condition met")
                     when["action"]()
+
+    def read_configuration(self):
+        with open(self.config) as f:
+            config_json = json.load(f)
+        for device in config_json["devices"]:
+            # Dynamically load device classes based on config file
+            device_class = globals()[device["type"].capitalize()]
+            self.devices["name"] = device_class(device["name"], device["zone"], self)
+            

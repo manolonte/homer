@@ -1,0 +1,49 @@
+{
+    "devices": [
+        {
+            "name": "enchufe_tele",
+            "type": "Plug",
+            "zone": "salon"
+        },
+        { 
+            "name" : "enchufe_sofa",
+            "type": "Plug",
+            "zone": "salon"
+        },
+        {
+            "name": "interruptor_bano_ninos",
+            "type": "Switch",
+            "zone": "segunda_planta"
+        },
+        {
+            "name": "enchufe_esquina_salon",
+            "type": "Plug",
+            "zone": "salon"
+        },
+        {
+            "name": "sensor_salon",
+            "type": "Sensor",
+            "zone": "salon"
+        },
+        {
+            "name": "interruptor_cocina",
+            "type": "Switch",
+            "zone": "cocina"
+        },
+        {
+            "name": "interruptor_agua_caliente",
+            "type": "Switch",
+            "zone": "buhardilla"
+        },
+        {
+            "name": "interruptor_cocina",
+            "type": "Switch",
+            "zone": "cocina"
+        },
+        {
+            "name": "sensor_humedad",
+            "type": "Sensor",
+            "zone": "jardin"
+        }
+    ]
+}

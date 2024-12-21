@@ -7,18 +7,19 @@ from engine import Engine
 def main():
     engine = Engine("config.json")
     
-
-    enchufe = Plug("enchufe_esquina_salon", "salon", engine)
-    luz = Switch("interruptor_cocina", "cocina", engine)
-    sensor_salon = Sensor("sensor_salon", "salon", engine)
-    interruptor_agua_caliente= Plug("interruptor_agua_caliente", "buhardilla", engine)
-    
     engine.start()
     time.sleep(5)
 
-    print(interruptor_agua_caliente.properties["countdown"])
-    print(engine.rules)
-    print(engine.when)
+    print("Enchufe sofa: " + engine.devices["enchufe_sofa"].get_state())
+    print("Enchufe tele: " + engine.devices["enchufe_tele"].get_state())
+
+    engine.devices["enchufe_sofa"].set_property("state", "ON")
+
+    print("Enchufe sofa: " + engine.devices["enchufe_sofa"].get_state())
+
+    engine.devices["enchufe_sofa"].set_property("state", "OFF")
+
+    print("Enchufe sofa: " + engine.devices["enchufe_sofa"].get_state())
 
     while True:
         pass

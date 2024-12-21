@@ -40,7 +40,7 @@ class Broker:
         self.client.loop_start()
         time.sleep(5)
         for device_name in self.engine.devices:
-              print(device_name + ":" + self.engine.devices[device_name].probe_property)
+              # print(device_name + ":" + self.engine.devices[device_name].probe_property)
               if self.engine.devices[device_name].probe_property != "" and not self.engine.devices[device_name].state :
                 self.client.publish(self.topic + "/" + device_name + "/get", '{"' + self.engine.devices[device_name].probe_property + '": ""}')
 
@@ -64,15 +64,6 @@ class Broker:
 
 
     def get_state(self, device, property):
-        print(
-            self.topic
-            + "/"
-            + device
-            + "/get"
-            + '{ "'
-            + property
-            + '": ""}'
-        )
         self.client.publish(self.topic + "/" + device + "/get", 
                             '{ "' + property + '": ""}',)
 
