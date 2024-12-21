@@ -19,7 +19,7 @@ class Broker:
 
 
     def on_message(self, client, userdata, msg):
-        # print(msg.topic + " " + str(msg.payload))
+        print(msg.topic + " " + str(msg.payload))
         device_name = msg.topic.split("/")[1] 
         if device_name in self.engine.devices:
             self.engine.devices[device_name].set_state(msg.payload)

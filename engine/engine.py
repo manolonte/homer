@@ -1,10 +1,12 @@
 import importlib
 import inspect
+import threading
 import os
 import time
 import engine.communications.mqtt as mqtt
 import json
 from devices import *
+from engine.homer_rest_api import RestApi
 
 class Engine:
     def __init__(self, config):
@@ -14,7 +16,13 @@ class Engine:
         self.rules = self.load_rules()
         self.when = self.load_when()
         self.broker = mqtt.Broker("zigbee2mqtt",self)
-
+        self.rest_api = RestApi(self)
+        self.rest_api_thread = threading.Thread(target=self.rest_api.run)
+        self.engine_thread = threading.Thread(target=self.start)
+        self.rest_api_thread.start()
+        self.engine_thread.start()
+        self.rest_api_thread.join()
+        self.engine_thread.join()
 
     def add_device(self, device):
         self.devices[device.name] = device
