@@ -24,3 +24,12 @@ class Device:
         self.engine.broker.set_state(self.name, property, value)
         self.properties[property] = value
         self.state = json.dumps(self.properties)
+    
+    def set(self, property, value):
+        self.set_property(property, value)
+
+    def get_property(self, property):
+        return self.properties[property]
+    
+    def get(self, property):
+        return self.get_property(property)

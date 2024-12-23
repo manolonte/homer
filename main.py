@@ -20,7 +20,7 @@ def main():
 
     # print("Enchufe sofa: " + engine.devices["enchufe_sofa"].get_state())
 
-    # engine.configure_device("interruptor_salon", "Switch", "salon")
+    engine.configure_device("interruptor_salon", "Switch", "salon")
 
     engine.devices["estamos_en_casa"].set_property("value", "False")
 
