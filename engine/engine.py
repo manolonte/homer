@@ -19,10 +19,15 @@ class Engine:
                             level=self.config_json["engine"]["log"]["level"],
                             format = self.config_json["engine"]["log"]["format"],
                             datefmt = self.config_json["engine"]["log"]["datefmt"])
-
+    
+        self.logger.info("Starting Homer")
         self.rules = self.load_rules()
         self.when = self.load_when()
-        self.broker = mqtt.Broker("zigbee2mqtt",self)
+        self.broker = mqtt.Broker(self.config_json["engine"]["broker"]["topic"],self,
+                                  self.config_json["engine"]["broker"]["host"],
+                                  self.config_json["engine"]["broker"]["port"],
+                                  self.config_json["engine"]["broker"]["username"],
+                                  self.config_json["engine"]["broker"]["password"])
         self.rest_api = RestApi(self)
         self.rest_api_thread = threading.Thread(target=self.rest_api.run)
         self.engine_thread = threading.Thread(target=self.start)

@@ -5,6 +5,14 @@
             "file": "homer.log",
             "format": "%(asctime)s - %(levelname)s - %(message)s",
             "datefmt": "%Y-%m-%d %H:%M:%S"
+        },
+        "broker": {
+            "protocol": "mqtt",
+            "host": "192.168.2.130",
+            "port": 1883,
+            "username": "openhabian",
+            "password": "ohPinno9!",
+            "topic": "zigbee2mqtt"
         }
     },
     "devices": [
@@ -13,8 +21,8 @@
             "type": "Plug",
             "zone": "salon"
         },
-        { 
-            "name" : "enchufe_sofa",
+        {
+            "name": "enchufe_sofa",
             "type": "Plug",
             "zone": "salon"
         },
@@ -52,6 +60,11 @@
             "name": "sensor_humedad",
             "type": "Sensor",
             "zone": "jardin"
+        },
+        {
+            "name": "interruptor_salon",
+            "type": "Switch",
+            "zone": "salon"
         },
         {
             "name": "estamos_en_casa",

@@ -4,10 +4,14 @@ import time
 
 class Broker:
     # The callback for when the client receives a CONNACK response from the server.
-    def __init__(self, topic, engine):
+    def __init__(self, topic, engine, host, port, username, password):
         self.topic = topic
         self.client = None
         self.engine = engine
+        self.host = host
+        self.port = port
+        self.username = username
+        self.password = password
         self.evaluate_when = False
         engine.add_broker(self)
 
@@ -34,9 +38,8 @@ class Broker:
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         self.engine.logger.info("Topic: " + self.topic + "/#")
-        # client.subscribe("#")
-        self.client.username_pw_set("openhabian", "ohPinno9!")
-        self.client.connect("192.168.2.130", 1883, 60)
+        self.client.username_pw_set(self.username, self.password)
+        self.client.connect(self.host, self.port, 60)
         self.client.loop_start()
         time.sleep(5)
         for device_name in self.engine.devices:
