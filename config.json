@@ -1,4 +1,12 @@
 {
+    "engine": {
+        "log" : {
+            "level": "INFO",
+            "file": "homer.log",
+            "format": "%(asctime)s - %(levelname)s - %(message)s",
+            "datefmt": "%Y-%m-%d %H:%M:%S"
+        }
+    },
     "devices": [
         {
             "name": "enchufe_tele",

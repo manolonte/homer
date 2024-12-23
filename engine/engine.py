@@ -5,14 +5,21 @@ import os
 import time
 import engine.communications.mqtt as mqtt
 import json
+import logging
 from devices import *
 from engine.homer_rest_api import RestApi
 
 class Engine:
     def __init__(self, config):
+        self.logger = logging.getLogger(__name__)
         self.config = config
         self.devices = {}
         self.read_configuration()
+        logging.basicConfig(filename = self.config_json["engine"]["log"]["file"],
+                            level=self.config_json["engine"]["log"]["level"],
+                            format = self.config_json["engine"]["log"]["format"],
+                            datefmt = self.config_json["engine"]["log"]["datefmt"])
+
         self.rules = self.load_rules()
         self.when = self.load_when()
         self.broker = mqtt.Broker("zigbee2mqtt",self)
@@ -61,14 +68,14 @@ class Engine:
         self.broker.stop()
 
     def evaluate_when(self, device):
-        print("Evaluating when for " + device.name)
+        self.logger.info("Evaluating when for " + device.name)
         for when in self.when:
             if when["condition"] == None:
-                print("No condition")
+                self.logger.info("No condition")
                 continue
             if when["condition"]["device"] == device.name:
                 if device.properties[when["condition"]["property"]] == when["condition"]["value"]:
-                    print("Condition met")
+                    self.logger.info("Condition met")
                     when["action"]()
 
     def read_configuration(self):
