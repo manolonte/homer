@@ -17,8 +17,8 @@ class SensorCalentadorRule(Rule):
 
     def when_enchufe(self):
         condition = {"device": "enchufe_esquina_salon", 
-                     "property": "countdown", 
-                     "value": 0}
+                     "property": "state", 
+                     "value": "ON"}
 
         action = self.execute
 

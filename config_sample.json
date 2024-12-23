@@ -52,6 +52,14 @@
             "name": "sensor_humedad",
             "type": "Sensor",
             "zone": "jardin"
+        },
+        {
+            "name": "estamos_en_casa",
+            "type": "Virtual",
+            "zone": "gui",
+            "state": {
+                "value": "True"
+            }
         }
     ]
 }

@@ -85,6 +85,9 @@ class Engine:
             # Dynamically load device classes based on config file
             device_class = globals()[device["type"].capitalize()]
             self.devices["name"] = device_class(device["name"], device["zone"], self)
+            if device["type"] == "Virtual":
+                self.devices["name"].properties = device["state"]
+                self.devices["name"].state = json.dumps(device["state"])
 
     def configure_device(self, name, type, zone):
         device = globals()[type.capitalize()](name, zone, self)

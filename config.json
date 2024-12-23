@@ -57,6 +57,14 @@
             "name": "interruptor_salon",
             "type": "Switch",
             "zone": "salon"
+        },
+        {
+            "name": "estamos_en_casa",
+            "type": "Virtual",
+            "zone": "gui",
+            "state": {
+                "value": "True"
+            }
         }
     ]
 }
