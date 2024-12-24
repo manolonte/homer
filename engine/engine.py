@@ -28,7 +28,7 @@ class Engine:
                                   self.config_json["engine"]["broker"]["port"],
                                   self.config_json["engine"]["broker"]["username"],
                                   self.config_json["engine"]["broker"]["password"])
-        self.rest_api = RestApi(self)
+        self.rest_api = RestApi(self, self.config_json["engine"]["rest_api"]["host"], self.config_json["engine"]["rest_api"]["port"])
         self.rest_api_thread = threading.Thread(target=self.rest_api.run)
         self.engine_thread = threading.Thread(target=self.start)
         self.rest_api_thread.start()
